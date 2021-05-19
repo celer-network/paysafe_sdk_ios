@@ -149,10 +149,28 @@ class WebServiceHandler: NSObject, WebServiceHandlerProtocol {
 
         let task = session.dataTask(with: request) { [weak self] data, response, error in
             DispatchQueue.main.async {
-                self?.handleDataTaskCompletion(with: data,
-                                               response: response,
-                                               error: error,
-                                               completion: completion)
+                guard error == nil else {
+                    completion(.failure(Errors.noResponseFromServerError))
+                    return
+                }
+
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    completion(.failure(Errors.invalidResponseError))
+                    return
+                }
+
+                guard (200...299).contains(httpResponse.statusCode) || httpResponse.statusCode == 304 else {
+                    completion(.failure(Errors.invalidResponseError))
+                    return
+                }
+
+                guard let data = data else {
+                    completion(.failure(Errors.internalSDKError))
+                    return
+                }
+
+                completion(.success(data))
+            
             }
         }
 
