@@ -7,8 +7,8 @@ Pod::Spec.new do |s|
   s.author            	= { 'Paysafe' => 'DeveloperCentre@OptimalPayments.com' }
   s.documentation_url 	= "https://developer.paysafe.com/en/sdks/mobile/ios/overview/"
   s.homepage          	= "https://github.com/paysafegroup/paysafe_sdk_ios"
-
-  s.source              = { :git => "https://github.com/paysafegroup/paysafe_sdk_ios.git", :tag => s.version }
+  
+  s.source              = { :git => "git@github.com:celer-network/paysafe_sdk_ios.git", :tag => s.version }
   s.source_files      	= 'Paysafe_SDK/**/*.{swift,h,m}'
   s.resources         	= 'Paysafe_SDK/**/*.html','**/*paysafe_sdk_versioning-Info.plist'
 
